@@ -1,127 +1,67 @@
-// import chalk from 'chalk';
-// import fs from 'fs';
-// import pegaArquivo from './index.js';
-// import logger from './trataErro.js';
-// import listaValidada from './http-validacao.js';
-// import { error } from 'console';
-
-
-
-
-// const caminho = process.argv;
-
-
-
-// async function imprimeLista(valida , resultado, identificador = '') {
-//   if(valida){
-//     console.log(chalk.yellow('Lista validada ')),
-//     chalk.black.bgGreen(identificador),
-//     await listaValidada(resultado);
-//   }else{
-//     console.log(chalk.yellow('Lista de links'),
-//     chalk.black.bgGreen(identificador),
-//     resultado);
-//   }
-// }
-
-
-
-// async function processaTexto(argumentos) {
-//   const caminho = argumentos[2];
-//   const valida = argumentos[3] === '--valida';
-  
-
-
-  // try {
-  //   fs.lstatSync(caminho);
-  //   const mensagem = 'Sucess'
-  //   logger.info(mensagem)
-  // } catch (erro) {
-  //   //console.log(erro);
-  //   if (erro.code === 'ENOENT') {
-  //     const mensagem = 'Pasta ou diretorio nao encontrado'
-  //     logger.error(mensagem);
-  //     return;
-  //   } else { 
-  //     const mensagem = 'Pasta ou diretorio vazio'   //else if para validar o tipo do erro do warn
-  //     logger.warn(mensagem);
-  //     console.error()
-  //     return
-  //   } //criar else para erros nao tratados( por enquanto usar console.error)
-  // }
-
-
-  
-//   if (fs.lstatSync(caminho).isFile()) {
-//     const resultado = await pegaArquivo(argumentos[2]);
-//     imprimeLista( valida, resultado);
-//   } else if (fs.lstatSync(caminho).isDirectory()) {
-//     const arquivos = await fs.promises.readdir(caminho)
-//     //fs.readdir(caminho, (error, arquivos) => { })
-//     arquivos.forEach(async (nomeDeArquivo) => {
-//       const lista = await pegaArquivo(`${caminho}/${nomeDeArquivo}`)
-//       imprimeLista(valida, lista, nomeDeArquivo)
-//     })
-//   }
-// }
-
-// processaTexto(caminho);
-
-
 import chalk from 'chalk';
 import fs from 'fs';
 import pegaArquivo from './index.js';
 import listaValidada from './http-validacao.js';
 import logger from './trataErro.js';
+import { log } from 'console';
+
+
 
 const caminho = process.argv;
-function infoCaminho(indice){
-   console.log(caminho[indice]);
+
+function infoCaminho() {
+  const dados = {
+    caminho_diretorio: caminho[1],
+    nome_diretorio: caminho[2],
+  }
+  logger.info("Trace", dados)
+  return;
+  //logger.info(JSON.stringify(dados));
+
 }
-infoCaminho(1);
+
 
 async function imprimeLista(valida, resultado, identificador = '') {
-  if (valida) {
-    console.log(
-      chalk.yellow('LISTA VALIDADA'),
-      chalk.black.bgGreen(identificador),
-      await listaValidada(resultado));    
+  if(!identificador){
+    identificador = 'Identificador padrão'
+  }
+  if (valida ) {
+    logger.debug(chalk.black.bgGreen(identificador),
+     await listaValidada(resultado));
   } else {
-    console.log(
-      chalk.yellow('lista de links'),
-      chalk.black.bgGreen(identificador),
-      resultado);
+    logger.trace( chalk.black.bgGreen(identificador),resultado);
   }
 }
-
 
 async function processaTexto(argumentos) {
   const caminho = argumentos[2];
   const valida = argumentos[3] === '--valida';
 
-  // try {
-  //   fs.lstatSync(caminho);
-  //   const mensagem = 'Sucess'
-  //   logger.info(mensagem)
-  // } catch (erro) {
-  //   //console.log(erro);
-  //   if (erro.code === 'ENOENT') {
-  //     const mensagem = 'Pasta ou diretorio nao encontrado'
-  //     logger.error(mensagem);
-  //     return;
-  //   } else { 
-  //     const mensagem = 'Pasta ou diretorio vazio'   //else if para validar o tipo do erro do warn
-  //     logger.warn(mensagem);
-  //     console.error()
-  //     return
-  //   } //criar else para erros nao tratados( por enquanto usar console.error)
-  // }
+  try {
+    fs.lstatSync(caminho);
+    const mensagem = 'Sucess'
+    logger.info(mensagem)
+    infoCaminho()
+  } catch (erro) {
 
+    if (erro.code === 'ENOENT') {
+      const mensagem = 'Pasta ou diretorio nao encontrado'
+      logger.warn(mensagem);
+    }
+    else {
+      const mensagem = `Algo no código ou no caminho está incorreto`
+      logger.error(mensagem, erro)
+    }
+    infoCaminho()
+    return;
 
-  if (fs.lstatSync(caminho).isFile()) {
+  }
+
+  const lstatResponse = fs.lstatSync(caminho);
+  if (lstatResponse.isFile()) {
     const resultado = await pegaArquivo(argumentos[2]);
     imprimeLista(valida, resultado);
-  } else if (fs.lstatSync(caminho).isDirectory()) {
+  } else if (lstatResponse.isDirectory()) {
     const arquivos = await fs.promises.readdir(caminho)
     arquivos.forEach(async (nomeDeArquivo) => {
       const lista = await pegaArquivo(`${caminho}/${nomeDeArquivo}`)
@@ -130,6 +70,7 @@ async function processaTexto(argumentos) {
   }
 }
 
+
+
 processaTexto(caminho);
 
-export default infoCaminho;
