@@ -20,24 +20,19 @@ function log(level, message, object) {
 
   switch (level) {
     case logLevels.INFO:
-      levelColor
-        = chalk.blue(level);
+      levelColor = chalk.blue(level);
       break;
     case logLevels.WARN:
-      levelColor
-        = chalk.yellow(level);
+      levelColor = chalk.yellow(level);
       break;
     case logLevels.ERRO:
-      levelColor
-        = chalk.red(level);
+      levelColor = chalk.red(level);
       break;
     case logLevels.TRACE:
-      levelColor
-        = chalk.bold(level);
+      levelColor = chalk.bold(level);
       break;
     case logLevels.DEBUG:
-      levelColor
-        = chalk.bold(level);
+      levelColor = chalk.bold(level);
       break;
   }
 
