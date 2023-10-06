@@ -16,20 +16,16 @@
 [INFO - 16:28:30] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js"} 
 [ERRO - 16:29:29] Algo no código ou no caminho está incorreto,revise novamente ... - {"code":"ERR_INVALID_ARG_TYPE"} 
 [INFO - 16:29:29] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js"} 
-[ERRO - 16:34:18] Algo no código ou no caminho está incorreto,revise novamente ... - {"code":"ERR_INVALID_ARG_TYPE"} 
-[INFO - 16:34:18] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js"} 
-[ERRO - 16:34:35] Algo no código ou no caminho está incorreto,revise novamente ... - {"code":"ERR_INVALID_ARG_TYPE"} 
-[INFO - 16:34:35] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js"} 
-[INFO - 16:34:45] Algo no código ou no caminho está incorreto,revise novamente ... - undefined 
-[INFO - 16:34:45] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","nome_diretorio":"./arquivos"} 
-[INFO - 16:35:11] Algo no código ou no caminho está incorreto,revise novamente ... - undefined 
-[INFO - 16:35:28] Algo no código ou no caminho está incorreto,revise novamente ... - undefined 
-[INFO - 16:36:16] Algo no código ou no caminho está incorreto,revise novamente ... - undefined 
-[INFO - 16:36:26] Sucess - undefined 
-[INFO - 16:36:26] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","nome_diretorio":"./arquivos"} 
-[INFO - 16:36:47] Sucess - undefined 
-[INFO - 16:36:47] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","nome_diretorio":"./arquivos"} 
-[INFO - 16:51:13] Sucess - undefined 
-[INFO - 16:51:13] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","nome_diretorio":"./arquivos"} 
-[ERRO - 16:51:28] Algo no código ou no caminho está incorreto,revise novamente ... - {"code":"ERR_INVALID_ARG_TYPE"} 
-[INFO - 16:51:28] Trace - {"caminho_diretorio":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js"} 
+[INFO - 18:11:28] Sucess - undefined 
+[INFO - 18:11:28] Trace - {"path_directory":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","name_directory":"./files"} 
+[WARN - 18:11:45] Pasta ou diretorio nao encontrado - undefined 
+[INFO - 18:11:45] Trace - {"path_directory":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","name_directory":"./arquivos/texto.md"} 
+[INFO - 18:14:57] Sucess - undefined 
+[INFO - 18:14:57] Trace - {"path_directory":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","name_directory":"./files/texto.md"} 
+[WARN - 18:15:42] Pasta ou diretorio nao encontrado - undefined 
+[INFO - 18:15:42] Trace - {"path_directory":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","name_directory":"./fi"} 
+[ERRO - 18:15:47] Algo no código ou no path está incorreto - {"code":"ERR_INVALID_ARG_TYPE"} 
+[INFO - 18:15:47] Trace - {"path_directory":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js"} 
+[INFO - 18:16:04] Sucess - undefined 
+[INFO - 18:16:04] Trace - {"path_directory":"C:\\Users\\MagdaMollo\\Downloads\\projeto_node\\src\\cli.js","name_directory":"./files/texto.md"} 
+[WARN - 18:16:04] Não há links no arquivo - undefined 

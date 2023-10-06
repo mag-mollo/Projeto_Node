@@ -1,76 +1,75 @@
 import chalk from 'chalk';
 import fs from 'fs';
-import pegaArquivo from './index.js';
-import listaValidada from './http-validacao.js';
-import logger from './trataErro.js';
+import getFile from './index.js';
+import validList from './http-validation.js';
+import logger from './outputLogs.js';
 import { log } from 'console';
 
 
 
-const caminho = process.argv;
+const path = process.argv;
 
-function infoCaminho() {
-  const dados = {
-    caminho_diretorio: caminho[1],
-    nome_diretorio: caminho[2],
+function infopath() {
+  const data = {
+    path_directory: path[1],
+    name_directory: path[2],
   }
-  logger.info("Trace", dados)
+  logger.info("Trace", data)
   return;
-  //logger.info(JSON.stringify(dados));
+  //logger.info(JSON.stringify(data));
 
 }
 
 
-async function imprimeLista(valida, resultado, identificador = '') {
-  if(!identificador){
-    identificador = 'Identificador padrão'
+async function printList(valid, result, identifier = '') {
+  if(!identifier){
+    identifier = 'Identificador padrão'
   }
-  if (valida ) {
-    logger.debug(chalk.black.bgGreen(identificador),
-     await listaValidada(resultado));
+  if (valid ) {
+    logger.debug(chalk.black.bgGreen(identifier),
+     await validList(result));
   } else {
-    logger.trace( chalk.black.bgGreen(identificador),resultado);
+    logger.trace( chalk.black.bgGreen(identifier),result);
   }
 }
 
-async function processaTexto(argumentos) {
-  const caminho = argumentos[2];
-  const valida = argumentos[3] === '--valida';
+async function processText(argument) {
+  const path = argument[2];
+  const valid = argument[3] === '--valid';
 
   try {
-    fs.lstatSync(caminho);
-    const mensagem = 'Sucess'
-    logger.info(mensagem)
-    infoCaminho()
-  } catch (erro) {
-
-    if (erro.code === 'ENOENT') {
-      const mensagem = 'Pasta ou diretorio nao encontrado'
-      logger.warn(mensagem);
+    fs.lstatSync(path);
+    const message = 'Sucess'
+    logger.info(message)
+    infopath()
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      const message = 'Pasta ou diretorio nao encontrado'
+      logger.warn(message);
     }
     else {
-      const mensagem = `Algo no código ou no caminho está incorreto`
-      logger.error(mensagem, erro)
+      const message = `Algo no código ou no path está incorreto`
+      logger.error(message, error)
     }
-    infoCaminho()
+    infopath()
     return;
 
   }
 
-  const lstatResponse = fs.lstatSync(caminho);
+  const lstatResponse = fs.lstatSync(path);
   if (lstatResponse.isFile()) {
-    const resultado = await pegaArquivo(argumentos[2]);
-    imprimeLista(valida, resultado);
+    const result = await getFile(argument[2]);
+    printList(valid, result);
   } else if (lstatResponse.isDirectory()) {
-    const arquivos = await fs.promises.readdir(caminho)
-    arquivos.forEach(async (nomeDeArquivo) => {
-      const lista = await pegaArquivo(`${caminho}/${nomeDeArquivo}`)
-      imprimeLista(valida, lista, nomeDeArquivo)
+    const files = await fs.promises.readdir(path)
+    files.forEach(async (fileName) => {
+      const list = await getFile(`${path}/${fileName}`)
+      printList(valid, list, fileName)
     })
   }
 }
 
 
 
-processaTexto(caminho);
+processText(path);
 
