@@ -7,9 +7,9 @@ import logger from './outputLogs.js';
 function filterLinks(texto) {
   const regex = /\[([^[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)/gm;
   const capture = [...texto.matchAll(regex)];
-  const result = capture.map( capture => ({ [ capture[1]]:  capture[2] }))
+  const result = capture.map(capture => ({ [capture[1]]: capture[2] }))
   return result.length !== 0 ? result : logger.warn('Não há links no arquivo');
-  
+
 }
 
 function processError(erro) {

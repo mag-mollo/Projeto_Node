@@ -22,14 +22,14 @@ function infopath() {
 
 
 async function printList(valid, result, identifier = '') {
-  if(!identifier){
+  if (!identifier) {
     identifier = 'Identificador padrão'
   }
-  if (valid ) {
+  if (valid) {
     logger.debug(chalk.black.bgGreen(identifier),
-     await validList(result));
+      await validList(result));
   } else {
-    logger.trace( chalk.black.bgGreen(identifier),result);
+    logger.trace(chalk.black.bgGreen(identifier), result);
   }
 }
 

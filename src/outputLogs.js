@@ -21,30 +21,30 @@ function log(level, message, object) {
   switch (level) {
     case logLevels.INFO:
       levelColor
-   = chalk.blue(level);
+        = chalk.blue(level);
       break;
     case logLevels.WARN:
       levelColor
-   = chalk.yellow(level);
+        = chalk.yellow(level);
       break;
     case logLevels.ERRO:
       levelColor
-   = chalk.red(level);
+        = chalk.red(level);
       break;
     case logLevels.TRACE:
       levelColor
-   = chalk.bold(level);
+        = chalk.bold(level);
       break;
     case logLevels.DEBUG:
       levelColor
-   = chalk.bold(level);
+        = chalk.bold(level);
       break;
   }
 
-  
+
   const messageSize = message.length;
   if (messageSize > LIMIT_MESSAGE) {
-    const restriction =  LIMIT_MESSAGE - RESTRICTION_MESSAGE.length
+    const restriction = LIMIT_MESSAGE - RESTRICTION_MESSAGE.length
     message = message.substring(0, restriction) + RESTRICTION_MESSAGE;
   }
 
