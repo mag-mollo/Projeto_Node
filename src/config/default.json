@@ -1,0 +1,9 @@
+{
+    "logger" : {
+        "limitMessage" : 64,
+        "restrictionMessage" : "...",
+        "logFilePath" : "./logs.log",
+        "shouldWriteLogs" : true  
+    }
+
+}

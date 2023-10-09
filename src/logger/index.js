@@ -1,8 +1,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
+import config from '../config/default.json' assert { type: "json" }
 
-const LIMIT_MESSAGE = 64;
-const RESTRICTION_MESSAGE = '...'
 
 const logLevels = {
   TRACE: 'TRCE',
@@ -36,26 +35,31 @@ function log(level, message, object) {
       break;
   }
 
-
+  const limitMessage = config.logger.limitMessage;
+  const restrictionMessage = config.logger.restrictionMessage;
   const messageSize = message.length;
-  if (messageSize > LIMIT_MESSAGE) {
-    const restriction = LIMIT_MESSAGE - RESTRICTION_MESSAGE.length
-    message = message.substring(0, restriction) + RESTRICTION_MESSAGE;
+  
+  if (messageSize > limitMessage) {
+    const restriction = limitMessage - restrictionMessage.length
+    message = message.substring(0, restriction) + restrictionMessage;
   }
+  
+  let logMessage = (`[${logLevels[level]} - ${currentTime}] ${message}`);
+  if (object && typeof object === 'object') {
+    console.log(logMessage, object);
+    object = JSON.stringify(object)
+    logMessage = `${logMessage} - ${object}`
+  } else {
+    console.log(logMessage);
+  }
+  const shouldWrite = config.logger.shouldWriteLogs;
 
-  const logMessage = (`[${levelColor} - ${currentTime}] ${message}`);
-  console.log(logMessage, object);
-
-  if (level === logLevels.TRACE || level === logLevels.DEBUG) {
+  if (!shouldWrite || level === logLevels.TRACE || level === logLevels.DEBUG) {
     return;
   }
 
-  if (object && typeof object === 'object') {
-    object = JSON.stringify(object)
-  }
-
-  const log = `[${logLevels[level]} - ${currentTime}] ${message} - ${object} \n`;
-  fs.appendFileSync('logs.txt', log);
+  const logFile = config.logger.logFilePath; 
+  fs.appendFileSync(logFile, logMessage + "\n");
 }
 
 

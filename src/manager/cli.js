@@ -2,9 +2,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 import getFile from './index.js';
 import validList from './http-validation.js';
-import logger from './outputLogs.js';
-import { log } from 'console';
-
+import logger from '../logger/index.js';
 
 
 const path = process.argv;
@@ -16,8 +14,6 @@ function infopath() {
   }
   logger.info("Trace", data)
   return;
-  //logger.info(JSON.stringify(data));
-
 }
 
 

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import chalk from 'chalk';
-import logger from './outputLogs.js';
+import logger from '../logger/index.js';
 
 
 
