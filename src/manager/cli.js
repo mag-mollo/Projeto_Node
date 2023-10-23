@@ -3,6 +3,7 @@ import fs from 'fs';
 import getFile from './index.js';
 import validList from './http-validation.js';
 import logger from '../logger/index.js';
+import { error } from 'console';
 
 
 const path = process.argv;
@@ -12,8 +13,8 @@ function infopath() {
     path_directory: path[1],
     name_directory: path[2],
   }
-  logger.info("Trace", data)
-  return;
+  const message = "Trace"
+  return logger.info(message, data);
 }
 
 
@@ -36,14 +37,13 @@ async function processText(argument) {
   try {
     fs.lstatSync(path);
     const message = 'Sucess'
-    logger.info(message)
+    logger.info(message);
     infopath()
   } catch (error) {
     if (error.code === 'ENOENT') {
       const message = 'Pasta ou diretorio nao encontrado'
       logger.warn(message);
-    }
-    else {
+    } else {
       const message = `Algo no código ou no path está incorreto`
       logger.error(message, error)
     }
@@ -64,8 +64,6 @@ async function processText(argument) {
     })
   }
 }
-
-
 
 processText(path);
 

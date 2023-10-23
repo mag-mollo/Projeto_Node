@@ -1,5 +1,5 @@
 function getLinks(arrLinks) {
-  return arrLinks.map((obejctLinks) => Object.values(obejctLinks).join())
+  return arrLinks.map((objectLinks) => Object.values(objectLinks).join())
 }
 
 async function checkStatus(listURLs) {
@@ -29,5 +29,5 @@ export default async function validList(listLinks) {
     ...object,
     status: status[index]
   }))
-
 }
+

@@ -2,8 +2,6 @@ import fs from 'fs';
 import chalk from 'chalk';
 import logger from '../logger/index.js';
 
-
-
 function filterLinks(texto) {
   const regex = /\[([^[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)/gm;
   const capture = [...texto.matchAll(regex)];
@@ -14,11 +12,8 @@ function filterLinks(texto) {
 
 function processError(erro) {
   console.log(erro);
-  throw new Error(chalk.red(erro.code, 'não há arquivo no diretório'));
-
+  throw new Error(chalk.red(erro.code, 'Não há arquivo no diretório'));
 }
-
-// async/await
 
 async function getFile(filePath) {
 

@@ -12,9 +12,6 @@ const logLevels = {
 };
 
 function log(level, message, object) {
-  const hour = new Date();
-  const currentTime = hour.toLocaleTimeString('pt-BR');
-
   let levelColor = level;
 
   switch (level) {
@@ -38,30 +35,41 @@ function log(level, message, object) {
   const limitMessage = config.logger.limitMessage;
   const restrictionMessage = config.logger.restrictionMessage;
   const messageSize = message.length;
-  
+
   if (messageSize > limitMessage) {
     const restriction = limitMessage - restrictionMessage.length
     message = message.substring(0, restriction) + restrictionMessage;
   }
-  
-  let logMessage = (`[${logLevels[level]} - ${currentTime}] ${message}`);
+
+  let logMessage = buildLogMessage(levelColor, message)
   if (object && typeof object === 'object') {
     console.log(logMessage, object);
-    object = JSON.stringify(object)
-    logMessage = `${logMessage} - ${object}`
   } else {
     console.log(logMessage);
   }
-  const shouldWrite = config.logger.shouldWriteLogs;
 
+  const shouldWrite = config.logger.shouldWriteLogs;
   if (!shouldWrite || level === logLevels.TRACE || level === logLevels.DEBUG) {
     return;
   }
 
-  const logFile = config.logger.logFilePath; 
-  fs.appendFileSync(logFile, logMessage + "\n");
+  logMessage = buildLogMessage(level, message, object);
+  const logFile = config.logger.logFilePath;
+  fs.appendFileSync(logFile, logMessage + '\n');
 }
 
+
+function buildLogMessage(level, message, object = null) {
+  const hour = new Date();
+  const currentTime = hour.toLocaleTimeString('pt-BR');
+  let logMessage = (`[${level} - ${currentTime}] ${message}`);
+  if (object && typeof object === 'object') {
+    object = JSON.stringify(object)
+    logMessage = `${logMessage} - ${object}`
+  }
+  return logMessage;
+
+}
 
 const logger = {
   info: (message, object) => log(logLevels.INFO, message, object),
@@ -70,7 +78,6 @@ const logger = {
   trace: (message, object) => log(logLevels.TRACE, message, object),
   debug: (message, object) => log(logLevels.DEBUG, message, object),
 };
-
 
 export default logger;
 
